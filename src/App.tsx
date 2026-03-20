@@ -60,7 +60,7 @@ function App() {
       <div className="relative z-10">
         <Navbar />
         <main>
-          <Home scrollY={scrollY} scrollYProgress={scrollYProgress} pageHeight={pageHeight} />
+          <Home />
         </main>
         <Footer />
       </div>

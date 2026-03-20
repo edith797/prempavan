@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { EASE_OUT, DURATIONS } from "../lib/motionConfig";
+
 
 export default function Footer() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,7 +41,7 @@ export default function Footer() {
             border: "1px solid rgba(255,255,255,0.44)",
             boxShadow: "0 16px 64px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.65)",
             padding: "clamp(2rem, 5vw, 3.5rem)",
-          } as React.CSSProperties}
+          } as unknown as React.CSSProperties}
         >
           {/* Inner top highlight */}
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/90 to-transparent" />

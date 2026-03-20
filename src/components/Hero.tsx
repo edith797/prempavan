@@ -1,14 +1,8 @@
 import { useRef } from "react";
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { EASE_OUT, EASE_IN_OUT, DURATIONS } from "../lib/motionConfig";
 
-interface HeroProps {
-  scrollY: MotionValue<number>;
-  scrollYProgress: MotionValue<number>;
-  pageHeight: number;
-}
-
-export default function Hero({ scrollY, scrollYProgress, pageHeight }: HeroProps) {
+export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
   // Parallax: hero content drifts up at ~20% of scroll speed as user leaves

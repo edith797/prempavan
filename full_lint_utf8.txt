@@ -1,0 +1,16 @@
+﻿
+D:\PremPavan\src\components\Footer.tsx
+  3:10  error  'EASE_OUT' is defined but never used   @typescript-eslint/no-unused-vars
+  3:20  error  'DURATIONS' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\PremPavan\src\components\Foundation.tsx
+  1:10  error  'useRef' is defined but never used     @typescript-eslint/no-unused-vars
+  4:10  error  'EASE_OUT' is defined but never used   @typescript-eslint/no-unused-vars
+  4:20  error  'DURATIONS' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\PremPavan\src\components\Products.tsx
+  2:10  error  'EASE_OUT' is defined but never used   @typescript-eslint/no-unused-vars
+  2:20  error  'DURATIONS' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 7 problems (7 errors, 0 warnings)
+

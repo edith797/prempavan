@@ -1,7 +1,6 @@
-import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Building2, Calendar, MapPin, FileText } from "lucide-react";
-import { EASE_OUT, DURATIONS } from "../lib/motionConfig";
+
 
 interface FoundationProps {
   sectionRef: React.RefObject<HTMLElement | null>;

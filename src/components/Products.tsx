@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { EASE_OUT, DURATIONS } from "../lib/motionConfig";
+
 
 interface ProductsProps {
   sectionRef: React.RefObject<HTMLElement | null>;
