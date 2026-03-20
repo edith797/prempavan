@@ -10,13 +10,15 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pageHeight, setPageHeight] = useState(5000);
 
-  // Lenis smooth scroll — window-based
+  // Lenis — premium inertia-based smooth scroll
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.6,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.8,
     });
 
     function raf(time: number) {
@@ -43,22 +45,22 @@ function App() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  // Track window scroll for background parallax
-  const { scrollY } = useScroll();
+  // Global scroll tracking — used by GlobalBackground for parallax
+  const { scrollY, scrollYProgress } = useScroll();
 
   return (
     <div
       ref={containerRef}
       className="relative w-full bg-[#F8F7F4] text-primary-text selection:bg-accent-warm selection:text-white"
     >
-      {/* Shared fixed background — spans ALL sections, parallaxes at ~18% scroll */}
-      <GlobalBackground scrollY={scrollY} pageHeight={pageHeight} />
+      {/* Fixed ambient background — always alive */}
+      <GlobalBackground scrollY={scrollY} scrollYProgress={scrollYProgress} pageHeight={pageHeight} />
 
-      {/* Page content — normal document flow for Lenis */}
+      {/* Page content */}
       <div className="relative z-10">
         <Navbar />
         <main>
-          <Home />
+          <Home scrollY={scrollY} scrollYProgress={scrollYProgress} pageHeight={pageHeight} />
         </main>
         <Footer />
       </div>

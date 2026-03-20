@@ -1,51 +1,75 @@
-import { motion } from "framer-motion";
-import { EASE_OUT, DURATIONS } from "../lib/motionConfig";
+import { useRef } from "react";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Foundation from "../components/Foundation";
 import Products from "../components/Products";
 import Customers from "../components/Customers";
 
+interface HomeProps {
+  scrollY: MotionValue<number>;
+  scrollYProgress: MotionValue<number>;
+  pageHeight: number;
+}
+
 /**
- * SectionFade — Apple-style dissolve wrapper.
- * Sections fade in (opacity + slight y) as they enter the viewport.
- * once: false means they re-animate when scrolled back up,
- * making section transitions feel continuous and alive.
+ * ScrollDrift — Replaces pop-in whileInView.
+ * Elements gently shift on Y as scroll progresses through their section.
+ * NO opacity pop, NO scale snap. Just calm, fluid motion tied to scroll position.
  */
-function SectionFade({ children }: { children: React.ReactNode }) {
+function ScrollDrift({
+  children,
+  sectionRef,
+  driftY = [-12, 12],
+}: {
+  children: React.ReactNode;
+  sectionRef: React.RefObject<HTMLElement | null>;
+  driftY?: [number, number];
+}) {
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], driftY);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-12%" }}
-      transition={{ duration: DURATIONS.long, ease: EASE_OUT }}
-    >
+    <motion.div style={{ y, willChange: "transform" }}>
       {children}
     </motion.div>
   );
 }
 
-export default function Home() {
+export default function Home({ scrollY, scrollYProgress, pageHeight }: HomeProps) {
+  const aboutRef    = useRef<HTMLElement>(null);
+  const foundRef    = useRef<HTMLElement>(null);
+  const productsRef = useRef<HTMLElement>(null);
+  const customersRef = useRef<HTMLElement>(null);
+
   return (
-    <>
-      {/* Hero is exempt — it has its own entry animation sequence */}
-      <Hero />
+    <div className="relative">
+      {/* Hero — no wrapper, has its own entry animation */}
+      <Hero scrollYProgress={scrollYProgress} pageHeight={pageHeight} scrollY={scrollY} />
 
-      <SectionFade>
-        <About />
-      </SectionFade>
+      {/* Soft gradient bleed — section blend */}
+      <div className="section-blend-divider" />
 
-      <SectionFade>
-        <Foundation />
-      </SectionFade>
+      {/* About — scroll drift */}
+      <About sectionRef={aboutRef} />
 
-      <SectionFade>
-        <Products />
-      </SectionFade>
+      <div className="section-blend-divider" />
 
-      <SectionFade>
-        <Customers />
-      </SectionFade>
-    </>
+      {/* Foundation — scroll drift */}
+      <Foundation sectionRef={foundRef} />
+
+      <div className="section-blend-divider" />
+
+      {/* Products — scroll drift */}
+      <Products sectionRef={productsRef} />
+
+      <div className="section-blend-divider" />
+
+      {/* Customers — scroll drift */}
+      <Customers sectionRef={customersRef} />
+    </div>
   );
 }

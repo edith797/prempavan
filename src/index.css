@@ -24,7 +24,6 @@
 }
 
 @layer components {
-  /* Section eyebrow label */
   .section-label {
     font-size: 0.7rem;
     font-weight: 700;
@@ -32,24 +31,164 @@
     text-transform: uppercase;
     color: var(--color-accent-warm);
   }
+
+  /* Section blend — soft top-to-bottom gradient fade between sections */
+  .section-blend-divider {
+    height: 80px;
+    margin-top: -80px;
+    position: relative;
+    z-index: 5;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(248, 247, 244, 0.25) 40%,
+      rgba(248, 247, 244, 0.25) 60%,
+      transparent 100%
+    );
+    backdrop-filter: blur(2px);
+  }
 }
 
-/* Watermark float animation — transform-only, zero layout cost */
+/* ─── Watermark float — always slow drift ─── */
 @keyframes watermark-float {
   0%, 100% { transform: translate(-50%, -50%) scale(1) translateY(0); }
-  50% { transform: translate(-50%, -50%) scale(1.03) translateY(-8px); }
+  50% { transform: translate(-50%, -50%) scale(1.025) translateY(-10px); }
 }
-
 .watermark-float {
-  animation: watermark-float 20s ease-in-out infinite;
+  animation: watermark-float 24s ease-in-out infinite;
   will-change: transform;
 }
 
-html {
-  /* scroll-behavior managed by Lenis */
+/* Non-centered watermarks (absolute positioned without translate hack) */
+@keyframes watermark-drift {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.02) translateY(-8px); }
+}
+.watermark-drift {
+  animation: watermark-drift 22s ease-in-out infinite;
+  will-change: transform;
 }
 
-::-webkit-scrollbar { width: 6px; }
+/* ─── Hero bloom — continuous pulse ─── */
+@keyframes hero-bloom {
+  0%, 100% { opacity: 0.16; transform: scale(0.88); }
+  50% { opacity: 0.40; transform: scale(1.16); }
+}
+.hero-bloom {
+  animation: hero-bloom 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ─── Blueprint grid — always drifting diagonally ─── */
+@keyframes blueprint-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 48px 48px; }
+}
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(28,28,28,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,28,28,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: blueprint-drift 20s linear infinite;
+  will-change: background-position;
+}
+
+/* ─── Light sweep — always traversing ─── */
+@keyframes light-sweep {
+  0% { transform: translateX(-130%) skewX(-12deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(230%) skewX(-12deg); opacity: 0; }
+}
+.light-sweep {
+  animation: light-sweep 6s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* ─── Glow pulse ─── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.07; transform: scale(1); }
+  50% { opacity: 0.17; transform: scale(1.09); }
+}
+.glow-pulse {
+  animation: glow-pulse 7s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ─── Float particle ─── */
+@keyframes float-particle {
+  0% { transform: translateY(0px) translateX(0px); opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateY(-70px) translateX(12px); opacity: 0; }
+}
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-accent-warm);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ─── Card idle float — ALWAYS on, no trigger ─── */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+.card-float {
+  animation: card-float var(--float-duration, 5s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+/* ─── Soft base gradient — very slow colour shift ─── */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.bg-gradient-base {
+  background: linear-gradient(135deg, #F8F7F4 0%, #EDE7DA 35%, #F2EDE4 65%, #F8F7F4 100%);
+  background-size: 300% 300%;
+  animation: gradient-shift 30s ease infinite;
+}
+
+/* ─── Glass card ─── */
+.glass-card {
+  background: rgba(255,255,255,0.30);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  border: 1px solid rgba(255,255,255,0.44);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.52);
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.glass-card:hover {
+  background: rgba(255,255,255,0.44);
+  box-shadow: 0 22px 52px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.65);
+}
+
+/* ─── Button shimmer ─── */
+@keyframes btn-shimmer {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(250%) skewX(-15deg); }
+}
+.btn-shimmer { position: relative; overflow: hidden; }
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.btn-shimmer:hover::after {
+  animation: btn-shimmer 0.65s ease forwards;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(194,168,120,0.4); border-radius: 6px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(194,168,120,0.7); }
+::-webkit-scrollbar-thumb { background: rgba(194,168,120,0.32); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(194,168,120,0.62); }

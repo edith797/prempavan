@@ -1,5 +1,8 @@
-import { motion } from "framer-motion";
-import { EASE_OUT, DURATIONS, staggerContainer, fadeUp } from "../lib/motionConfig";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+interface CustomersProps {
+  sectionRef: React.RefObject<HTMLElement | null>;
+}
 
 const customers = [
   "DMW",             "Sakthi Auto",     "Flow Link",       "Se forge",
@@ -10,13 +13,22 @@ const customers = [
   "GTN Engineering", "MIL KSB Pumps",   "Q&Q Solution",
 ];
 
-export default function Customers() {
+export default function Customers({ sectionRef }: CustomersProps) {
+  const { scrollYProgress } = useScroll({
+    target: sectionRef as React.RefObject<HTMLElement>,
+    offset: ["start end", "end start"],
+  });
+  const headerY   = useTransform(scrollYProgress, [0, 0.35, 1], [18, 0, -8]);
+  const gridY     = useTransform(scrollYProgress, [0.05, 0.6, 1], [12, 0, -6]);
+  const opacity   = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.35, 1, 1, 0.45]);
+
   return (
     <section
       id="customers"
+      ref={sectionRef as React.RefObject<HTMLElement>}
       className="min-h-screen w-full flex items-center relative px-6 md:px-16 overflow-hidden py-28"
     >
-      {/* Connecting mesh — subtle, static (no animation cost) */}
+      {/* Static mesh — always visible */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]">
         <svg width="100%" height="100%">
           <pattern id="connect-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -29,55 +41,70 @@ export default function Customers() {
         </svg>
       </div>
 
-      {/* Floating watermark */}
+      {/* Watermark — always drifting */}
       <img
         src="/logo.png" alt=""
-        className="absolute right-[4%] bottom-[4%] w-[380px] h-[380px] object-contain opacity-[0.04] pointer-events-none select-none z-0 watermark-float"
+        className="absolute right-[4%] bottom-[4%] w-[360px] h-[360px] object-contain opacity-[0.04] pointer-events-none select-none z-0 watermark-drift"
       />
 
-      <div className="container mx-auto max-w-5xl relative z-10">
+      <motion.div className="container mx-auto max-w-5xl relative z-10" style={{ opacity }}>
 
-        {/* Header — fadeUp */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: DURATIONS.base, ease: EASE_OUT }}
-          className="mb-12"
-        >
+        {/* Header — scroll drift */}
+        <motion.div className="mb-12" style={{ y: headerY, willChange: "transform" }}>
           <p className="section-label mb-3">Our Customers</p>
           <h2 className="font-black text-primary-text tracking-tight" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
             Trusted by Leaders
           </h2>
         </motion.div>
 
-        {/* Grid — fadeUp, slight delay after header */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          <motion.div
-            variants={fadeUp}
-            className="bg-white/35 backdrop-blur-xl border border-white/40 rounded-2xl overflow-hidden"
+        {/* Glass grid — always visible, scroll drift */}
+        <motion.div style={{ y: gridY, willChange: "transform" }}>
+          <div
+            className="relative overflow-hidden rounded-2xl card-float"
+            style={{
+              "--float-duration": "7s",
+              "--float-delay": "0s",
+              background: "rgba(255,255,255,0.28)",
+              backdropFilter: "blur(18px) saturate(155%)",
+              WebkitBackdropFilter: "blur(18px) saturate(155%)",
+              border: "1px solid rgba(255,255,255,0.44)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.60)",
+            } as React.CSSProperties}
           >
+            {/* Inner highlight */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent z-10" />
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {customers.map((customer, i) => (
-                <div
+                <motion.div
                   key={i}
-                  className="flex items-center justify-center text-center p-4 border-r border-b border-white/25 last:border-r-0 group hover:bg-white/40 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-all duration-300 min-h-[72px] cursor-pointer"
+                  className="flex items-center justify-center text-center p-4 border-r border-b border-white/25 last:border-r-0 cursor-pointer relative overflow-hidden"
+                  whileHover={{ backgroundColor: "rgba(255,255,255,0.46)", y: -1 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ minHeight: "72px" }}
                 >
-                  <span className="font-medium text-[13px] text-secondary-text group-hover:text-primary-text group-hover:font-semibold transition-all duration-300 leading-tight">
+                  {/* Shimmer on hover */}
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    initial={{ x: "-100%", opacity: 0 }}
+                    whileHover={{ x: "200%", opacity: 1 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)", transform: "skewX(-15deg)" }}
+                  />
+                  <motion.span
+                    className="font-medium text-[13px] text-secondary-text leading-tight relative z-10"
+                    whileHover={{ color: "#1C1C1C", fontWeight: "600" }}
+                    transition={{ duration: 0.2 }}
+                  >
                     {customer}
-                  </span>
-                </div>
+                  </motion.span>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }
