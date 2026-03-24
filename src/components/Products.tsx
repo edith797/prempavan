@@ -6,12 +6,12 @@ interface ProductsProps {
 }
 
 const brands = [
-  { name: "Allied Machine and Engineering", featured: true },
-  { name: "GTW – Gusti Tool Works",         featured: false },
-  { name: "Fenwick and Ravi",                featured: false },
-  { name: "MEBA India Pvt Ltd",              featured: true },
-  { name: "M.S.T.M Tools",                  featured: false },
-  { name: "Customized and SPL Tools",        featured: false },
+  { name: "Allied Machine and Engineering", logo: "/brands/allied.jpeg", featured: true },
+  { name: "GTW – Gusti Tool Works",         logo: "/brands/gtw.jpeg", featured: false },
+  { name: "Fenwick and Ravi",               logo: "/brands/far.jpeg", featured: false },
+  { name: "MEBA India Pvt Ltd",             logo: "/brands/meba.jpeg", featured: true },
+  { name: "M.S.T.M Tools",                  logo: "/brands/mstm.jpeg", featured: false },
+  { name: "Customized and SPL Tools",       logo: "/brands/spyro.jpeg", featured: false },
 ];
 
 const FLOAT_PARAMS = [
@@ -29,9 +29,9 @@ export default function Products({ sectionRef }: ProductsProps) {
     offset: ["start end", "end start"],
   });
 
-  const headerY = useTransform(scrollYProgress, [0, 0.35, 1], [20, 0, -8]);
+  const headerY = useTransform(scrollYProgress, [0, 0.35, 1], [10, 0, -4]);
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.35, 1, 1, 0.45]);
-  const gridY   = useTransform(scrollYProgress, [0.05, 0.55, 1], [16, 0, -8]);
+  const gridY   = useTransform(scrollYProgress, [0.05, 0.55, 1], [8, 0, -4]);
 
   return (
     <section
@@ -66,29 +66,18 @@ export default function Products({ sectionRef }: ProductsProps) {
           {brands.map((brand, i) => (
             <motion.div
               key={brand.name}
-              className="relative overflow-hidden rounded-2xl p-6 flex flex-col gap-2 group cursor-pointer card-float"
+              className="relative overflow-hidden rounded-2xl p-6 flex flex-col items-center justify-center gap-4 group cursor-pointer card-float glass-card min-h-[160px] text-center"
               style={{
                 "--float-duration": FLOAT_PARAMS[i].duration,
                 "--float-delay": FLOAT_PARAMS[i].delay,
-                background: "rgba(255,255,255,0.30)",
-                backdropFilter: "blur(18px) saturate(155%)",
-                WebkitBackdropFilter: "blur(18px) saturate(155%)",
-                border: "1px solid rgba(255,255,255,0.44)",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.52)",
               } as React.CSSProperties}
-              whileHover={{
-                y: -8,
-                boxShadow: "0 28px 60px rgba(0,0,0,0.11), inset 0 1px 0 rgba(255,255,255,0.70)",
-                backgroundColor: "rgba(255,255,255,0.46)",
-              }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Inner highlight */}
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/70 to-transparent" />
 
-              {/* Gold left accent — hover */}
+              {/* Cyan left accent — hover */}
               <motion.div
-                className="absolute left-0 top-5 bottom-5 w-[3px] bg-accent-warm rounded-full"
+                className="absolute left-0 top-5 bottom-5 w-[3px] bg-[#06b6d4] rounded-full"
                 initial={{ scaleY: 0, opacity: 0 }}
                 whileHover={{ scaleY: 1, opacity: 1 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -104,17 +93,29 @@ export default function Products({ sectionRef }: ProductsProps) {
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)", transform: "skewX(-12deg)" }}
               />
 
-              {/* Big letter */}
-              <motion.span
-                className="block font-black text-primary-text group-hover:text-accent-warm transition-colors duration-250 leading-none pl-1"
-                style={{ fontSize: brand.featured ? "clamp(3rem, 6vw, 4.5rem)" : "clamp(2.4rem, 5vw, 3.5rem)" }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {brand.name.charAt(0)}
-              </motion.span>
+              {/* Logo or Big letter */}
+              {brand.logo ? (
+                <div className="flex-grow flex items-center justify-center w-full h-[80px] md:h-[100px]">
+                  <motion.img 
+                    src={brand.logo} 
+                    alt={brand.name} 
+                    className="max-h-full max-w-[90%] md:max-w-[85%] object-contain rounded-md"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                </div>
+              ) : (
+                <motion.span
+                  className="block font-black text-primary-text group-hover:text-[#06b6d4] transition-colors duration-250 leading-none flex-grow flex items-center justify-center w-full min-h-[80px]"
+                  style={{ fontSize: brand.featured ? "clamp(3.5rem, 7vw, 5.5rem)" : "clamp(3rem, 6vw, 4.5rem)" }}
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {brand.name.charAt(0)}
+                </motion.span>
+              )}
 
-              <h3 className="text-[14px] font-semibold text-secondary-text group-hover:text-primary-text transition-colors duration-250 leading-snug pl-1">
+              <h3 className="text-[15px] font-semibold text-secondary-text group-hover:text-primary-text transition-colors duration-250 leading-snug w-full">
                 {brand.name}
               </h3>
             </motion.div>

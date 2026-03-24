@@ -8,15 +8,16 @@ export default {
     extend: {
       colors: {
         primary: {
-          bg: "#F5F5DC", // Soft Beige
-          text: "#2B2B2B", // Dark Grey
+          bg: "#020617", // Deep Navy
+          text: "#f8fafc", // White/Light grey
         },
         secondary: {
-          bg: "#EDE6D6", // Light Beige
-          text: "#3F3F3F", // Charcoal Grey
+          bg: "#0f172a", // Lighter Navy
+          text: "#e2e8f0", // Soft blue grey
         },
         accent: {
-          warm: "#C9B79C", // Warm Sand
+          warm: "#1e3a8a", // Rich blue
+          cyan: "#0ea5e9"  // Electric Blue
         }
       },
       fontFamily: {

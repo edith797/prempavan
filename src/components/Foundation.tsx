@@ -33,9 +33,9 @@ export default function Foundation({ sectionRef }: FoundationProps) {
     target: sectionRef as React.RefObject<HTMLElement>,
     offset: ["start end", "end start"],
   });
-  const headerY  = useTransform(scrollYProgress, [0, 0.35, 1], [24, 0, -10]);
+  const headerY  = useTransform(scrollYProgress, [0, 0.35, 1], [10, 0, -4]);
   const opacity  = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.35, 1, 1, 0.45]);
-  const cardsY   = useTransform(scrollYProgress, [0.05, 0.5, 1], [14, 0, -6]);
+  const cardsY   = useTransform(scrollYProgress, [0.05, 0.5, 1], [8, 0, -4]);
 
   return (
     <section
@@ -46,11 +46,11 @@ export default function Foundation({ sectionRef }: FoundationProps) {
       {/* Blueprint accents — always visible, drawn in once */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ opacity: 0.06 }}>
-          <path d="M 3 12 L 3 3 L 12 3" fill="none" stroke="#1C1C1C" strokeWidth="0.12" />
-          <path d="M 88 3 L 97 3 L 97 12" fill="none" stroke="#1C1C1C" strokeWidth="0.12" />
-          <path d="M 3 88 L 3 97 L 12 97" fill="none" stroke="#1C1C1C" strokeWidth="0.12" />
-          <path d="M 88 97 L 97 97 L 97 88" fill="none" stroke="#1C1C1C" strokeWidth="0.12" />
-          <path d="M 47 50 L 53 50 M 50 47 L 50 53" fill="none" stroke="#C2A878" strokeWidth="0.08" opacity="0.5" />
+          <path d="M 3 12 L 3 3 L 12 3" fill="none" stroke="#1e293b" strokeWidth="0.12" />
+          <path d="M 88 3 L 97 3 L 97 12" fill="none" stroke="#1e293b" strokeWidth="0.12" />
+          <path d="M 3 88 L 3 97 L 12 97" fill="none" stroke="#1e293b" strokeWidth="0.12" />
+          <path d="M 88 97 L 97 97 L 97 88" fill="none" stroke="#1e293b" strokeWidth="0.12" />
+          <path d="M 47 50 L 53 50 M 50 47 L 50 53" fill="none" stroke="#06b6d4" strokeWidth="0.08" opacity="0.5" />
         </svg>
       </div>
 
@@ -67,9 +67,9 @@ export default function Foundation({ sectionRef }: FoundationProps) {
         {/* Header — scroll-driven y drift */}
         <motion.div className="mb-14" style={{ y: headerY, willChange: "transform" }}>
           <p className="section-label mb-3">Foundation</p>
-          <h2 className="font-black text-primary-text tracking-tight" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
+          <p className="text-[#0ea5e9] font-medium mb-1 tracking-wide uppercase" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}>
             Built on Solid Ground
-          </h2>
+          </p>
         </motion.div>
 
         {/* Cards — always floating (card-float CSS), scroll Y drift */}

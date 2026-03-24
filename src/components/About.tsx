@@ -14,13 +14,13 @@ export default function About({ sectionRef }: AboutProps) {
     offset: ["start end", "end start"],
   });
   // Left column: enters from slight left-offset → center
-  const leftX  = useTransform(scrollYProgress, [0, 0.4, 1], [-18, 0, 8]);
+  const leftX  = useTransform(scrollYProgress, [0, 0.4, 1], [-8, 0, 4]);
   // Right column: enters from slight right-offset → center
-  const rightX = useTransform(scrollYProgress, [0, 0.4, 1], [18, 0, -8]);
+  const rightX = useTransform(scrollYProgress, [0, 0.4, 1], [8, 0, -4]);
   // Shared opacity — already visible, just a gentle soft-fade at edges
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.85, 1], [0.4, 1, 1, 0.5]);
   // Stats: slow floating y — scroll-synced
-  const statY  = useTransform(scrollYProgress, [0.2, 0.8], [8, -8]);
+  const statY  = useTransform(scrollYProgress, [0.2, 0.8], [4, -4]);
 
   return (
     <section
@@ -52,7 +52,7 @@ export default function About({ sectionRef }: AboutProps) {
             </h2>
             {/* Divider — always visible, slow scale on hover */}
             <div
-              className="h-[2px] bg-gradient-to-r from-accent-warm to-transparent rounded-full"
+              className="h-[2px] bg-gradient-to-r from-[#06b6d4] to-transparent rounded-full"
               style={{ width: "80%" }}
             />
           </motion.div>
@@ -78,7 +78,6 @@ export default function About({ sectionRef }: AboutProps) {
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  whileHover={{ y: -5 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   style={{
                     "--float-duration": `${4.5 + i * 1.2}s`,

@@ -35,7 +35,7 @@ export default function Hero() {
             transition={{ duration: 8, repeat: Infinity, ease: EASE_IN_OUT as never }}
             aria-hidden
           >
-            <div className="w-full h-full bg-accent-warm/20 rounded-full" />
+            <div className="w-full h-full bg-[#06b6d4]/15 rounded-full" />
           </motion.div>
           {/* Inner tight bloom */}
           <motion.div
@@ -45,25 +45,25 @@ export default function Hero() {
             transition={{ duration: 5.5, repeat: Infinity, ease: EASE_IN_OUT as never, delay: 1.2 }}
             aria-hidden
           >
-            <div className="w-full h-full bg-accent-warm/30 rounded-full" />
+            <div className="w-full h-full bg-[#06b6d4]/20 rounded-full" />
           </motion.div>
 
           <motion.img
             src="/logo.png"
             alt="PremPavan Logo"
-            initial={{ opacity: 0, scale: 0.88, y: 14, filter: "blur(10px)" }}
-            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: DURATIONS.xlong, ease: EASE_OUT }}
             className="w-24 h-24 md:w-32 md:h-32 object-contain relative z-10 mx-auto"
-            style={{ filter: "drop-shadow(0 14px 36px rgba(194,168,120,0.30))" }}
+            style={{ filter: "drop-shadow(0 14px 36px rgba(6,182,212,0.25))" }}
             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
           />
         </div>
 
         {/* Label */}
         <motion.p
-          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATIONS.base, ease: EASE_OUT, delay: 0.12 }}
           className="section-label mb-5"
         >
@@ -72,8 +72,8 @@ export default function Hero() {
 
         {/* Heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 30, scale: 0.97, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: DURATIONS.long, ease: EASE_OUT, delay: 0.20 }}
           className="font-black text-primary-text tracking-tight leading-[1.04] mb-3"
           style={{ fontSize: "clamp(2.6rem, 7vw, 5.2rem)" }}
@@ -82,8 +82,8 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATIONS.base, ease: EASE_OUT, delay: 0.28 }}
           className="font-bold text-secondary-text tracking-tight mb-5"
           style={{ fontSize: "clamp(1.2rem, 3vw, 2rem)" }}
@@ -93,26 +93,26 @@ export default function Hero() {
 
         {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATIONS.short, ease: EASE_OUT, delay: 0.36 }}
-          className="text-base md:text-lg font-medium text-accent-warm mb-14 tracking-tight"
+          className="text-base md:text-lg font-bold text-[#1e3a8a] mb-14 tracking-tight"
         >
           Innovating Solutions, Driving Progress
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATIONS.short, ease: EASE_OUT, delay: 0.44 }}
           className="flex flex-col sm:flex-row gap-4 items-center"
         >
           <motion.a
             href="#products"
             onClick={(e) => { e.preventDefault(); document.getElementById("products")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="relative overflow-hidden px-8 py-3.5 bg-primary-text text-white rounded-full font-semibold text-[15px] w-full sm:w-auto text-center btn-shimmer"
-            whileHover={{ scale: 1.04, y: -2, boxShadow: "0 18px 40px rgba(28,28,28,0.24)" }}
+            className="relative overflow-hidden px-8 py-3.5 bg-primary-text text-[#020617] rounded-full font-bold text-[15px] w-full sm:w-auto text-center btn-shimmer flex items-center justify-center gap-2 group"
+            whileHover={{ scale: 1.03, boxShadow: "0 12px 24px rgba(6,182,212,0.2)" }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -121,8 +121,8 @@ export default function Hero() {
           <motion.a
             href="#footer-contact"
             onClick={(e) => { e.preventDefault(); document.getElementById("footer-contact")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="relative overflow-hidden px-8 py-3.5 bg-white/30 backdrop-blur-[20px] border border-white/42 text-primary-text rounded-full font-semibold text-[15px] w-full sm:w-auto text-center btn-shimmer"
-            whileHover={{ scale: 1.04, y: -2, backgroundColor: "rgba(255,255,255,0.50)", boxShadow: "0 12px 28px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.65)" }}
+            className="relative overflow-hidden px-8 py-3.5 bg-[#1e3a8a]/30 backdrop-blur-[20px] border border-white/20 text-primary-text rounded-full font-semibold text-[15px] w-full sm:w-auto text-center btn-shimmer"
+            whileHover={{ scale: 1.03, backgroundColor: "rgba(30,58,138,0.50)", boxShadow: "0 12px 24px rgba(6,182,212,0.15), inset 0 1px 0 rgba(255,255,255,0.2)" }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >

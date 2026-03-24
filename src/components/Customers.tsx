@@ -18,8 +18,8 @@ export default function Customers({ sectionRef }: CustomersProps) {
     target: sectionRef as React.RefObject<HTMLElement>,
     offset: ["start end", "end start"],
   });
-  const headerY   = useTransform(scrollYProgress, [0, 0.35, 1], [18, 0, -8]);
-  const gridY     = useTransform(scrollYProgress, [0.05, 0.6, 1], [12, 0, -6]);
+  const headerY   = useTransform(scrollYProgress, [0, 0.35, 1], [10, 0, -4]);
+  const gridY     = useTransform(scrollYProgress, [0.05, 0.6, 1], [6, 0, -3]);
   const opacity   = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.35, 1, 1, 0.45]);
 
   return (
@@ -60,15 +60,10 @@ export default function Customers({ sectionRef }: CustomersProps) {
         {/* Glass grid — always visible, scroll drift */}
         <motion.div style={{ y: gridY, willChange: "transform" }}>
           <div
-            className="relative overflow-hidden rounded-2xl card-float"
+            className="relative overflow-hidden rounded-2xl card-float glass-card"
             style={{
               "--float-duration": "7s",
               "--float-delay": "0s",
-              background: "rgba(255,255,255,0.28)",
-              backdropFilter: "blur(18px) saturate(155%)",
-              WebkitBackdropFilter: "blur(18px) saturate(155%)",
-              border: "1px solid rgba(255,255,255,0.44)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.60)",
             } as React.CSSProperties}
           >
             {/* Inner highlight */}
@@ -93,7 +88,7 @@ export default function Customers({ sectionRef }: CustomersProps) {
                   />
                   <motion.span
                     className="font-medium text-[13px] text-secondary-text leading-tight relative z-10"
-                    whileHover={{ color: "#1C1C1C", fontWeight: "600" }}
+                    whileHover={{ color: "#f8fafc", fontWeight: "600" }}
                     transition={{ duration: 0.2 }}
                   >
                     {customer}

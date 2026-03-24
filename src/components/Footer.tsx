@@ -9,7 +9,7 @@ export default function Footer() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const cardY  = useTransform(scrollYProgress, [0, 0.4, 1], [24, 0, -6]);
+  const cardY  = useTransform(scrollYProgress, [0, 0.4, 1], [10, 0, -3]);
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.35, 1, 1, 0.7]);
 
   return (
@@ -48,7 +48,7 @@ export default function Footer() {
           {/* Corner glow */}
           <div
             className="absolute -bottom-16 -left-16 w-[300px] h-[300px] rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(194,168,120,0.10) 0%, transparent 70%)", filter: "blur(40px)" }}
+            style={{ background: "radial-gradient(circle, rgba(30,58,138,0.15) 0%, transparent 70%)", filter: "blur(40px)" }}
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14 mb-12 relative z-10">
@@ -65,7 +65,7 @@ export default function Footer() {
                 />
                 <div className="flex flex-col">
                   <span className="font-extrabold text-2xl md:text-3xl leading-tight tracking-tight text-primary-text">PremPavan</span>
-                  <span className="text-[11px] font-bold text-accent-warm tracking-[0.3em] uppercase">Engineers</span>
+                  <span className="text-[11px] font-bold text-[#06b6d4] tracking-[0.3em] uppercase">Engineers</span>
                 </div>
               </div>
               <h3 className="font-bold text-primary-text text-lg mb-3 tracking-tight">India Private Limited</h3>
@@ -83,13 +83,13 @@ export default function Footer() {
                   <motion.a
                     href="tel:8870937038"
                     className="text-primary-text font-semibold text-[15px] block"
-                    whileHover={{ color: "#C2A878", x: 3 }}
+                    whileHover={{ color: "#06b6d4", x: 3 }}
                     transition={{ duration: 0.2 }}
                   >8870937038</motion.a>
                   <motion.a
                     href="tel:8870937074"
                     className="text-primary-text font-semibold text-[15px] block mt-1.5"
-                    whileHover={{ color: "#C2A878", x: 3 }}
+                    whileHover={{ color: "#06b6d4", x: 3 }}
                     transition={{ duration: 0.2 }}
                   >8870937074</motion.a>
                 </div>
@@ -97,8 +97,8 @@ export default function Footer() {
                   <span className="text-secondary-text text-sm block mb-1.5">✉️ Email</span>
                   <motion.a
                     href="mailto:prempavanengrs2019@gmail.com"
-                    className="text-accent-warm font-semibold text-[14px] block break-all"
-                    whileHover={{ color: "#1C1C1C", x: 3 }}
+                    className="text-[#06b6d4] font-semibold text-[14px] block break-all"
+                    whileHover={{ color: "#1e293b", x: 3 }}
                     transition={{ duration: 0.2 }}
                   >prempavanengrs2019@gmail.com</motion.a>
                 </div>

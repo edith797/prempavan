@@ -49,15 +49,11 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "py-3 bg-white/28 backdrop-blur-[22px] border-b border-white/35 shadow-[0_4px_32px_rgba(0,0,0,0.06)] saturate-[150%]"
-          : "py-6 bg-transparent border-b border-transparent"
+          ? "py-3 bg-opacity-95 bg-[#020617] backdrop-blur-[12px] border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.6)]"
+          : "py-6 bg-opacity-70 bg-[#020617] backdrop-blur-[12px] border-b border-white/5"
       )}
-      style={{
-        // Subtle inner highlight when scrolled
-        boxShadow: isScrolled ? "0 4px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.55)" : "none",
-      }}
     >
       <div className="container mx-auto px-6 md:px-16 flex items-center justify-between">
 
@@ -79,7 +75,7 @@ export default function Navbar() {
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="font-bold text-[18px] leading-none tracking-tight text-[#1C1C1C] group-hover:text-[#C2A878] transition-colors duration-300">
+            <span className="font-bold text-[18px] leading-none tracking-tight text-[#1e293b] group-hover:text-[#06b6d4] transition-colors duration-300">
               PremPavan
             </span>
             <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-secondary-text mt-1">
@@ -100,8 +96,8 @@ export default function Navbar() {
                 className={cn(
                   "relative text-[14px] transition-colors duration-300 group inline-block",
                   isActive
-                    ? "text-[#C2A878] font-semibold"
-                    : "text-[#1C1C1C] font-medium hover:text-[#C2A878]"
+                    ? "text-[#06b6d4] font-semibold"
+                    : "text-[#1e293b] font-medium hover:text-[#06b6d4]"
                 )}
                 whileHover={{ y: -1 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -109,7 +105,7 @@ export default function Navbar() {
                 {link.name}
                 {/* Slide-in underline micro-interaction */}
                 <motion.span
-                  className="absolute -bottom-1.5 left-0 h-[2px] rounded-full bg-[#C2A878]"
+                  className="absolute -bottom-1.5 left-0 h-[2px] rounded-full bg-[#06b6d4]"
                   initial={false}
                   animate={{
                     width: isActive ? "100%" : "0%",
@@ -118,7 +114,7 @@ export default function Navbar() {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 />
                 {/* Hover underline separate layer */}
-                <span className="absolute -bottom-1.5 left-0 h-[2px] rounded-full bg-[#C2A878] w-0 opacity-0 group-hover:w-full group-hover:opacity-60 transition-all duration-350" />
+                <span className="absolute -bottom-1.5 left-0 h-[2px] rounded-full bg-[#06b6d4] w-0 opacity-0 group-hover:w-full group-hover:opacity-60 transition-all duration-350" />
               </motion.a>
             );
           })}
@@ -126,7 +122,7 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <motion.button
-          className="md:hidden p-2.5 rounded-xl border border-white/55 bg-white/35 backdrop-blur-[18px] text-[#1C1C1C] transition-colors duration-300 hover:bg-white/65"
+          className="md:hidden p-2.5 rounded-xl border border-white/55 bg-white/35 backdrop-blur-[18px] text-[#1e293b] transition-colors duration-300 hover:bg-white/65"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           whileTap={{ scale: 0.93 }}
           transition={{ duration: 0.15 }}
@@ -152,7 +148,7 @@ export default function Navbar() {
               onClick={(e) => scrollTo(link.href, e)}
               className={cn(
                 "block py-4 px-8 text-[15px] border-b border-black/5 last:border-0 transition-colors duration-200",
-                isActive ? "text-[#C2A878] font-semibold" : "text-[#1C1C1C] font-medium hover:text-[#C2A878]"
+                isActive ? "text-[#06b6d4] font-semibold" : "text-[#1e293b] font-medium hover:text-[#06b6d4]"
               )}
             >
               {link.name}

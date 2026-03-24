@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import GlobalBackground from "./components/GlobalBackground";
+import Preloader from "./components/Preloader";
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,8 +52,11 @@ function App() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-[#F8F7F4] text-primary-text selection:bg-accent-warm selection:text-white"
+      className="relative w-full bg-[var(--color-primary-bg)] text-primary-text selection:bg-accent-warm selection:text-white"
     >
+      {/* Preloader - plays once per session */}
+      <Preloader />
+
       {/* Fixed ambient background — always alive */}
       <GlobalBackground scrollY={scrollY} scrollYProgress={scrollYProgress} pageHeight={pageHeight} />
 
